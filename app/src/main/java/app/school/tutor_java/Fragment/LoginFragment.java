@@ -107,9 +107,11 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         if (savedInstanceState != null) {
-            onViewStateRestored(savedInstanceState);
+            onRestoreStateInstanceState(savedInstanceState);
         }
 
+        mPhoneNumberViews = view.findViewById(R.id.phoneAuthFields);
+        mSignedInViews = view.findViewById(R.id.signedInButtons);
 
         otpLayout = view.findViewById(R.id.otpLayout);
         number = view.findViewById(R.id.number);
@@ -251,9 +253,7 @@ public class LoginFragment extends Fragment {
         outState.putBoolean(KEY_VERIFY_IN_PROGRESS, mVerificationInProgress);
     }
 
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
+    public void onRestoreStateInstanceState(@Nullable Bundle savedInstanceState) {
         mVerificationInProgress = savedInstanceState.getBoolean(KEY_VERIFY_IN_PROGRESS);
     }
 
