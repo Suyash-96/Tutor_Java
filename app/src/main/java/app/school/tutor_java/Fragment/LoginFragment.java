@@ -62,9 +62,6 @@ public class LoginFragment extends Fragment {
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
 
-    private ViewGroup mPhoneNumberViews;
-    private ViewGroup mSignedInViews;
-
     private TextInputLayout otpLayout;
 
     private TextInputEditText number;
@@ -110,9 +107,6 @@ public class LoginFragment extends Fragment {
             onRestoreStateInstanceState(savedInstanceState);
         }
 
-        mPhoneNumberViews = view.findViewById(R.id.phoneAuthFields);
-        mSignedInViews = view.findViewById(R.id.signedInButtons);
-
         otpLayout = view.findViewById(R.id.otpLayout);
         number = view.findViewById(R.id.number);
         otp = view.findViewById(R.id.otp);
@@ -123,8 +117,8 @@ public class LoginFragment extends Fragment {
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-/*                otpLayout.setVisibility(View.VISIBLE);
-                authentication.setVisibility(View.VISIBLE);*/
+                otpLayout.setVisibility(View.VISIBLE);
+                authentication.setVisibility(View.VISIBLE);
                 if (!validatePhoneNumber()) {
                     return;
                 }
@@ -384,13 +378,9 @@ public class LoginFragment extends Fragment {
 
         if (user == null) {
             // Signed out
-            mPhoneNumberViews.setVisibility(View.VISIBLE);
-            mSignedInViews.setVisibility(View.GONE);
 
         } else {
             // Signed in
-            mPhoneNumberViews.setVisibility(View.GONE);
-            mSignedInViews.setVisibility(View.VISIBLE);
 
             enableViews(number, otp);
             number.setText(null);
