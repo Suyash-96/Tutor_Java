@@ -10,6 +10,8 @@
     <color name="yellow">#ffd600</color>
 
     <color name="toolbarIconColor">#000</color>
+    <color name="gradiantStartColor">#fafafa</color>
+    <color name="gradiantEndColor">#ffccbc</color>
 
     <!--color name="colorPrimary">#0288d1</color>
     <color name="colorPrimaryDark">#01579b</color>

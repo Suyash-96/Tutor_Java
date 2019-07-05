@@ -9,6 +9,7 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import app.school.tutor_java.R;
 
@@ -23,6 +24,7 @@ public class LoginFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private TextInputLayout otpLayout;
     private TextInputEditText number;
     private TextInputEditText otp;
     private Button verify;
@@ -59,6 +61,7 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
+        otpLayout = view.findViewById(R.id.otpLayout);
         number = view.findViewById(R.id.number);
         otp = view.findViewById(R.id.otp);
 
@@ -67,7 +70,7 @@ public class LoginFragment extends Fragment {
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                otp.setVisibility(View.VISIBLE);
+                otpLayout.setVisibility(View.VISIBLE);
                 authentication.setVisibility(View.VISIBLE);
             }
         });
