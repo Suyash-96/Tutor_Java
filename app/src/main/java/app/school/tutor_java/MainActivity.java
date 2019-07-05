@@ -1,11 +1,10 @@
 package app.school.tutor_java;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.os.Bundle;
-import android.view.SurfaceControl;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,8 +13,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        FragmentTransaction transaction =fragmentManager.beginTransaction();
-        transaction.add(R.id.content, new LoginFragment()).commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if (transaction.isEmpty()) {
+            transaction.add(R.id.content, new LoginFragment());
+            transaction.commit();
+        }
     }
 }
