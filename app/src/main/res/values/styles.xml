@@ -1,30 +1,59 @@
 <resources>
 
-    <style name="Theme.Login" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="Widget.Toolbar" parent="Widget.AppCompat.Toolbar">
-        <!--<item name="android:background">?attr/colorAccent</item>-->
-        <!--<item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>-->
-        <!--<item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>-->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="TopLeftCutButton" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearance">@style/shapeAppearanceTLC</item>
     </style>
 
+    <style name="TopRightCutButton" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearance">@style/shapeAppearanceTRC</item>
+    </style>
 
+    <style name="BottomLeftCutButton" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearance">@style/shapeAppearanceBLC</item>
+    </style>
 
+    <style name="BottomRightCutButton" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearance">@style/shapeAppearanceBRC</item>
+    </style>
 
-    <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
-    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
-    <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-    <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-    <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-    <!--<item name="colorAccent">@color/colorAccent</item>-->
-    <!--</style>-->
+    <style name="shapeAppearanceTLC">
+        <item name="cornerFamilyTopLeft">cut</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSize">40dp</item>
+    </style>
+
+    <style name="shapeAppearanceTRC">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyTopRight">cut</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSize">40dp</item>
+    </style>
+
+    <style name="shapeAppearanceBLC">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyBottomLeft">cut</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSize">40dp</item>
+    </style>
+
+    <style name="shapeAppearanceBRC">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomRight">cut</item>
+        <item name="cornerSize">40dp</item>
+    </style>
 
 </resources>
