@@ -63,7 +63,7 @@ public class LoginFragment extends Fragment {
         otp = view.findViewById(R.id.otp);
 
         verify = view.findViewById(R.id.verify_number);
-        authentication = view.findViewById(R.id.authentication)
+        authentication = view.findViewById(R.id.authentication);
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
