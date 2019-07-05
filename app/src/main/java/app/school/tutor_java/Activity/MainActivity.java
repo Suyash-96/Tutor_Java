@@ -1,6 +1,8 @@
 package app.school.tutor_java.Activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -8,9 +10,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 import app.school.tutor_java.Fragment.LoginFragment;
 import app.school.tutor_java.R;
@@ -22,12 +21,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         final FragmentTransaction transaction = fragmentManager.beginTransaction();
 
 
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
 
@@ -44,6 +45,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }, 2 * 1000);
-
     }
+
 }
