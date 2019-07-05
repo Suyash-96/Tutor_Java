@@ -1,4 +1,4 @@
-package app.school.tutor_java;
+package app.school.tutor_java.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+
+import app.school.tutor_java.R;
 
 
 public class LoginFragment extends Fragment {
