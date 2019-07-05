@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import app.school.tutor_java.R;
 
@@ -19,6 +22,11 @@ public class LoginFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private TextInputEditText number;
+    private TextInputEditText otp;
+    private Button verify;
+    private Button authentication;
 
 
     public LoginFragment() {
@@ -49,6 +57,21 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
+
+        number = view.findViewById(R.id.number);
+        otp = view.findViewById(R.id.otp);
+
+        verify = view.findViewById(R.id.verify_number);
+        authentication = view.findViewById(R.id.authentication)
+        verify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                otp.setVisibility(View.VISIBLE);
+                authentication.setVisibility(View.VISIBLE);
+            }
+        });
+
+        return view;
     }
 }
