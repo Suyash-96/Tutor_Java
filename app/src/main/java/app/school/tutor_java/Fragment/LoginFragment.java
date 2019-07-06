@@ -1,20 +1,24 @@
 package app.school.tutor_java.Fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
@@ -25,13 +29,13 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-
-//Country code Picker
 import com.hbb20.CountryCodePicker;
 
 import java.util.concurrent.TimeUnit;
 
 import app.school.tutor_java.R;
+
+//Country code Picker
 
 
 public class LoginFragment extends Fragment {
@@ -75,6 +79,9 @@ public class LoginFragment extends Fragment {
     private Button authentication;
     private Button mResend;
 
+    private ProgressDialog progressDialog;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
 
     public LoginFragment() {
         // Required empty public constructor
@@ -105,33 +112,61 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        final View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         if (savedInstanceState != null) {
             onRestoreStateInstanceState(savedInstanceState);
         }
 
+        FragmentManager fragmentManager = getFragmentManager();
+        final FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    if (transaction.isEmpty()) {
+                        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+                        transaction.add(R.id.content, new ClassesFragment());
+                        transaction.commit();
+                    }
+
+                }
+            }
+        };
+
         otpLayout = view.findViewById(R.id.otpLayout);
+
+        progressDialog = new ProgressDialog(getContext());
 
         //Country code Picker
         ccp = view.findViewById(R.id.ccp);
-        String countryCode = ccp.getSelectedCountryCodeWithPlus();
+        final String countryCode = ccp.getSelectedCountryCodeWithPlus();
 
         number = view.findViewById(R.id.number);
         otp = view.findViewById(R.id.otp);
 
-        verify = view.findViewById(R.id.verify_number);
+        verify = view.findViewById(R.id.verify);
         authentication = view.findViewById(R.id.authentication);
         mResend = view.findViewById(R.id.resend);
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                otpLayout.setVisibility(View.VISIBLE);
-                authentication.setVisibility(View.VISIBLE);
+
                 if (!validatePhoneNumber()) {
                     return;
                 }
-                startPhoneNumberVerification(number.getText().toString());
+
+                progressDialog.setTitle("Please Chillax");
+                progressDialog.setMessage("Sending Verification Code");
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+
+                startPhoneNumberVerification(countryCode + number.getText().toString());
             }
         });
 
@@ -144,6 +179,12 @@ public class LoginFragment extends Fragment {
                     return;
                 }
 
+                progressDialog.setTitle("Letting You In");
+                progressDialog.setMessage("Verifying Code");
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+
                 verifyPhoneNumberWithCode(mVerificationId, code);
             }
         });
@@ -151,13 +192,17 @@ public class LoginFragment extends Fragment {
         mResend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                progressDialog.setTitle("Please Chillax");
+                progressDialog.setMessage("Re-Sending Verification Code");
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.setCancelable(false);
+                progressDialog.show();
                 resendVerificationCode(number.getText().toString(), mResendToken);
 
             }
         });
 
-        mAuth = FirebaseAuth.getInstance();
-        // [END initialize_auth]
 
         // Initialize phone auth callbacks
         // [START phone_auth_callbacks]
@@ -181,6 +226,10 @@ public class LoginFragment extends Fragment {
                 updateUI(STATE_VERIFY_SUCCESS, credential);
                 // [END_EXCLUDE]
                 signInWithPhoneAuthCredential(credential);
+
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
             }
 
 
@@ -201,8 +250,8 @@ public class LoginFragment extends Fragment {
                 } else if (e instanceof FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
                     // [START_EXCLUDE]
-                    //Snackbar.make(findViewById(android.R.id.content), "Quota exceeded.",
-                            //Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(view.findViewById(R.id.contentLogin), "Quota exceeded.",
+                            Snackbar.LENGTH_LONG).show();
                     // [END_EXCLUDE]
                 }
 
@@ -210,11 +259,18 @@ public class LoginFragment extends Fragment {
                 // [START_EXCLUDE]
                 updateUI(STATE_VERIFY_FAILED);
                 // [END_EXCLUDE]
+
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
             }
 
             @Override
             public void onCodeSent(String verificationId,
                                    PhoneAuthProvider.ForceResendingToken token) {
+
+                Snackbar.make(view.findViewById(R.id.contentLogin), "The SMS verification code has been sent to the provided phone number",
+                        Snackbar.LENGTH_LONG).show();
                 // The SMS verification code has been sent to the provided phone number, we
                 // now need to ask the user to enter the code and then construct a credential
                 // by combining the code with a verification ID.
@@ -228,7 +284,12 @@ public class LoginFragment extends Fragment {
                 // Update UI
                 updateUI(STATE_CODE_SENT);
                 // [END_EXCLUDE]
+
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
             }
+
         };
         return view;
     }
@@ -243,7 +304,7 @@ public class LoginFragment extends Fragment {
 
         // [START_EXCLUDE]
         if (mVerificationInProgress && validatePhoneNumber()) {
-            startPhoneNumberVerification(number.getText().toString());
+            startPhoneNumberVerification(ccp.getSelectedCountryCodeWithPlus() + number.getText().toString());
         }
         // [END_EXCLUDE]
     }
@@ -302,9 +363,18 @@ public class LoginFragment extends Fragment {
                             Log.d(TAG, "signInWithCredential:success");
 
                             FirebaseUser user = task.getResult().getUser();
+
+                            Toast.makeText(getContext(), "Logged In Successfully", Toast.LENGTH_SHORT).show();
                             // [START_EXCLUDE]
                             updateUI(STATE_SIGNIN_SUCCESS, user);
                             // [END_EXCLUDE]
+                            FragmentManager fragmentManager = getFragmentManager();
+                            FragmentTransaction transaction = fragmentManager.beginTransaction();
+                            transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+                            transaction.replace(R.id.content, new ClassesFragment());
+                            transaction.commit();
+
+
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -319,7 +389,11 @@ public class LoginFragment extends Fragment {
                             updateUI(STATE_SIGNIN_FAILED);
                             // [END_EXCLUDE]
                         }
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
                     }
+
                 });
     }
     // [END sign_in_with_phone]
@@ -349,12 +423,12 @@ public class LoginFragment extends Fragment {
             case STATE_INITIALIZED:
                 // Initialized state, show only the phone number field and start button
                 enableViews(verify, number);
-                disableViews(authentication, mResend, otp);
                 break;
             case STATE_CODE_SENT:
                 // Code sent state, show the verification field, the
-                enableViews(authentication, mResend, number, otp);
-                disableViews(verify);
+                enableViews(authentication, mResend, otp);
+                visibleViews(authentication, mResend, otpLayout);
+                disableViews(verify, number);
                 break;
             case STATE_VERIFY_FAILED:
                 // Verification has failed, show all options
@@ -399,8 +473,9 @@ public class LoginFragment extends Fragment {
 
     private boolean validatePhoneNumber() {
         String phoneNumber = number.getText().toString();
-        if (TextUtils.isEmpty(phoneNumber)) {
+        if (TextUtils.isEmpty(phoneNumber) || phoneNumber.length() < 10) {
             number.setError("Invalid phone number.");
+            number.requestFocus();
             return false;
         }
 
@@ -418,5 +493,12 @@ public class LoginFragment extends Fragment {
             v.setEnabled(false);
         }
     }
+
+    private void visibleViews(View... views) {
+        for (View v : views) {
+            v.setVisibility(View.VISIBLE);
+        }
+    }
+
 
 }

@@ -11,10 +11,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import app.school.tutor_java.Fragment.ClassesFragment;
 import app.school.tutor_java.Fragment.LoginFragment;
 import app.school.tutor_java.R;
 
 public class MainActivity extends AppCompatActivity {
+
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseUser mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +45,26 @@ public class MainActivity extends AppCompatActivity {
                 ProgressBar progressBar = findViewById(R.id.progressBar);
                 progressBar.setVisibility(View.INVISIBLE);
 
-                if (transaction.isEmpty()) {
-                    transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-                    transaction.add(R.id.content, new LoginFragment());
-                    transaction.commit();
+                mAuth = FirebaseAuth.getInstance().getCurrentUser();
+
+                if (mAuth == null) {
+                    // User is signed out
+                    if (transaction.isEmpty()) {
+                        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+                        transaction.add(R.id.content, new LoginFragment());
+                        transaction.commit();
+                    }
+                } else {
+                    // User is signed in
+
+                    if (transaction.isEmpty()) {
+                        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+                        transaction.add(R.id.content, new ClassesFragment());
+                        transaction.commit();
+                    }
+
                 }
+
             }
         }, 2 * 1000);
     }

@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contentLogin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.LoginFragment">
@@ -32,6 +33,7 @@
             android:textSize="18sp" />
 
         //Country code Picker
+
         <com.hbb20.CountryCodePicker
             android:id="@+id/ccp"
             android:layout_width="wrap_content"
@@ -55,11 +57,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"
-                android:maxLength="13"/>
+                android:maxLength="13" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/verify_number"
+            android:id="@+id/verify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -67,8 +69,8 @@
             android:text="Verify" />
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:id="@+id/otpLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
@@ -82,26 +84,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberPassword"
-                android:maxLength="6"/>
+                android:maxLength="6" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/resend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Resend"
-            android:visibility="invisible" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/resend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:paddingRight="2dp"
+                android:text="Resend"
+                android:visibility="invisible" />
 
 
-        <Button
-            android:id="@+id/authentication"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Authenticate"
-            android:visibility="invisible" />
-
+            <Button
+                android:id="@+id/authentication"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:paddingLeft="2dp"
+                android:text="Authenticate"
+                android:visibility="invisible" />
+        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>

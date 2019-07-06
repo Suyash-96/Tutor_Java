@@ -7,7 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import app.school.tutor_java.R;
 
@@ -31,6 +37,7 @@ public class ClassesFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     public ClassesFragment() {
         // Required empty public constructor
@@ -67,7 +74,26 @@ public class ClassesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_classes, container, false);
+        View view = inflater.inflate(R.layout.fragment_classes, container, false);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        final FragmentTransaction transaction = fragmentManager.beginTransaction();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed out
+                    if (transaction.isEmpty()) {
+                        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+                        transaction.add(R.id.content, new LoginFragment());
+                        transaction.commit();
+                    }
+                }
+            }
+        };
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

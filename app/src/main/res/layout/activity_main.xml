@@ -16,8 +16,9 @@
         android:drawableTop="@drawable/logo"
         android:drawablePadding="20dp"
         android:text=" Tutor"
+        android:textAppearance="@style/myHeadline6"
         android:textAlignment="center"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <ProgressBar
