@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,6 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
@@ -25,6 +25,9 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+
+//Country code Picker
+import com.hbb20.CountryCodePicker;
 
 import java.util.concurrent.TimeUnit;
 
@@ -64,6 +67,7 @@ public class LoginFragment extends Fragment {
 
     private TextInputLayout otpLayout;
 
+    CountryCodePicker ccp;
     private TextInputEditText number;
     private TextInputEditText otp;
 
@@ -108,6 +112,11 @@ public class LoginFragment extends Fragment {
         }
 
         otpLayout = view.findViewById(R.id.otpLayout);
+
+        //Country code Picker
+        ccp = view.findViewById(R.id.ccp);
+        String countryCode = ccp.getSelectedCountryCodeWithPlus();
+
         number = view.findViewById(R.id.number);
         otp = view.findViewById(R.id.otp);
 
@@ -122,7 +131,6 @@ public class LoginFragment extends Fragment {
                 if (!validatePhoneNumber()) {
                     return;
                 }
-
                 startPhoneNumberVerification(number.getText().toString());
             }
         });

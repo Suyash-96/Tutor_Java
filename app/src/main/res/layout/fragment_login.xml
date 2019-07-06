@@ -26,10 +26,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="120dp"
+            android:layout_marginBottom="12dp"
             android:text="Tutor"
             android:textAllCaps="true"
             android:textSize="18sp" />
+
+        //Country code Picker
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/ccp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            app:ccp_autoDetectCountry="true"
+            tools:ccp_contentColor="#fcfdfd"
+            tools:ccp_textSize="20dp" />
+
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -43,7 +54,8 @@
                 android:id="@+id/number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:maxLength="13"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -69,7 +81,8 @@
                 android:id="@+id/otp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberPassword" />
+                android:inputType="numberPassword"
+                android:maxLength="6"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button

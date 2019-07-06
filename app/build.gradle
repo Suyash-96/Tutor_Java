@@ -30,4 +30,6 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.firebase:firebase-auth:18.0.0'
+
+    implementation 'com.hbb20:ccp:2.2.2'
 }
