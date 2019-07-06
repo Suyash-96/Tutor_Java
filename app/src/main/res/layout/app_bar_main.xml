@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".Activity.MainActivity">
+
+    <include layout="@layout/content_main" />
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:visibility="gone"
+        app:fabAlignmentMode="center"
+        app:fabCradleRoundedCornerRadius="22dp"
+        app:hideOnScroll="true"
+        app:navigationIcon="@drawable/tutor_menu" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="@color/yellow"
+        android:src="@drawable/ic_menu_gallery"
+        android:visibility="gone"
+        app:layout_anchor="@id/bottomAppBar" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

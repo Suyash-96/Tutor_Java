@@ -35,6 +35,12 @@ import java.util.concurrent.TimeUnit;
 
 import app.school.tutor_java.R;
 
+import static app.school.tutor_java.Activity.MainActivity.bottomAppBar;
+import static app.school.tutor_java.Activity.MainActivity.fab;
+import static app.school.tutor_java.Utils.disableViews;
+import static app.school.tutor_java.Utils.enableViews;
+import static app.school.tutor_java.Utils.visibleViews;
+
 //Country code Picker
 
 
@@ -130,7 +136,7 @@ public class LoginFragment extends Fragment {
                     // User is signed in
                     if (transaction.isEmpty()) {
                         transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-                        transaction.add(R.id.content, new ClassesFragment());
+                        transaction.add(R.id.content, new ClassFragment());
                         transaction.commit();
                     }
 
@@ -371,7 +377,8 @@ public class LoginFragment extends Fragment {
                             FragmentManager fragmentManager = getFragmentManager();
                             FragmentTransaction transaction = fragmentManager.beginTransaction();
                             transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-                            transaction.replace(R.id.content, new ClassesFragment());
+                            transaction.replace(R.id.content, new ClassFragment());
+                            visibleViews(bottomAppBar, fab);
                             transaction.commit();
 
 
@@ -481,24 +488,5 @@ public class LoginFragment extends Fragment {
 
         return true;
     }
-
-    private void enableViews(View... views) {
-        for (View v : views) {
-            v.setEnabled(true);
-        }
-    }
-
-    private void disableViews(View... views) {
-        for (View v : views) {
-            v.setEnabled(false);
-        }
-    }
-
-    private void visibleViews(View... views) {
-        for (View v : views) {
-            v.setVisibility(View.VISIBLE);
-        }
-    }
-
 
 }

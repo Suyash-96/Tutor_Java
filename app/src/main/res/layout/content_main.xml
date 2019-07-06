@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Activity.MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+    <TextView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="150dp"
+        android:drawableTop="@drawable/logo"
+        android:drawablePadding="20dp"
+        android:text=" Tutor"
+        android:textAlignment="center"
+        android:textAppearance="@style/myHeadline6"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="100dp"
+        android:elevation="5dp" />
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

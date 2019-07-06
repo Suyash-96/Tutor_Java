@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.LoginFragment">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,8 +30,6 @@
             android:text="Tutor"
             android:textAllCaps="true"
             android:textSize="18sp" />
-
-        //Country code Picker
 
         <com.hbb20.CountryCodePicker
             android:id="@+id/ccp"

@@ -9,7 +9,7 @@
     <color name="blue">@color/colorPrimary</color>
     <color name="yellow">#ffd600</color>
 
-    <color name="toolbarIconColor">#000</color>
+    <color name="toolbarIconColor">#FFF</color>
     <color name="gradiantStartColor">#fafafa</color>
     <color name="gradiantEndColor">#ffccbc</color>
 

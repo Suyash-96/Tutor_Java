@@ -1,39 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context=".Activity.MainActivity">
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 
-
-    <TextView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="150dp"
-        android:drawableTop="@drawable/logo"
-        android:drawablePadding="20dp"
-        android:text=" Tutor"
-        android:textAppearance="@style/myHeadline6"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="5dp"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="100dp" />
-
-    <FrameLayout
-        android:id="@+id/content"
+    <include
+        layout="@layout/app_bar_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

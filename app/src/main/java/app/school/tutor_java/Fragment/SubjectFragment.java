@@ -7,26 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import app.school.tutor_java.R;
-
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ClassesFragment.OnFragmentInteractionListener} interface
+ * {@link SubjectFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ClassesFragment#newInstance} factory method to
+ * Use the {@link SubjectFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ClassesFragment extends Fragment {
+public class SubjectFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,9 +30,8 @@ public class ClassesFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private FirebaseAuth.AuthStateListener mAuthListener;
 
-    public ClassesFragment() {
+    public SubjectFragment() {
         // Required empty public constructor
     }
 
@@ -49,11 +41,11 @@ public class ClassesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ClassesFragment.
+     * @return A new instance of fragment SubjectFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ClassesFragment newInstance(String param1, String param2) {
-        ClassesFragment fragment = new ClassesFragment();
+    public static SubjectFragment newInstance(String param1, String param2) {
+        SubjectFragment fragment = new SubjectFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -74,26 +66,7 @@ public class ClassesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_classes, container, false);
-
-        FragmentManager fragmentManager = getFragmentManager();
-        final FragmentTransaction transaction = fragmentManager.beginTransaction();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed out
-                    if (transaction.isEmpty()) {
-                        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-                        transaction.add(R.id.content, new LoginFragment());
-                        transaction.commit();
-                    }
-                }
-            }
-        };
-
-        return view;
+        return inflater.inflate(R.layout.fragment_subject, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -108,6 +81,9 @@ public class ClassesFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
         }
     }
 
